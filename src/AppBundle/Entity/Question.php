@@ -56,4 +56,164 @@ class Question
     {
         $this->tests = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Question
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     *
+     * @return Question
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Add test
+     *
+     * @param \AppBundle\Entity\Test $test
+     *
+     * @return Question
+     */
+    public function addTest(\AppBundle\Entity\Test $test)
+    {
+        $this->tests[] = $test;
+
+        return $this;
+    }
+
+    /**
+     * Remove test
+     *
+     * @param \AppBundle\Entity\Test $test
+     */
+    public function removeTest(\AppBundle\Entity\Test $test)
+    {
+        $this->tests->removeElement($test);
+    }
+
+    /**
+     * Get tests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    /**
+     * Add questionVariant
+     *
+     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     *
+     * @return Question
+     */
+    public function addQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    {
+        $this->questionVariants[] = $questionVariant;
+
+        return $this;
+    }
+
+    /**
+     * Remove questionVariant
+     *
+     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     */
+    public function removeQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    {
+        $this->questionVariants->removeElement($questionVariant);
+    }
+
+    /**
+     * Get questionVariants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestionVariants()
+    {
+        return $this->questionVariants;
+    }
+
+    /**
+     * Add usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     *
+     * @return Question
+     */
+    public function addUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults[] = $usersTestsResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     */
+    public function removeUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults->removeElement($usersTestsResult);
+    }
+
+    /**
+     * Get usersTestsResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersTestsResults()
+    {
+        return $this->usersTestsResults;
+    }
 }

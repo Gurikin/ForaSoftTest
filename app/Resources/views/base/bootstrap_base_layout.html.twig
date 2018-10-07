@@ -7,13 +7,29 @@
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/carousel.css') }}" />
             <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+            <style>
+                @font-face {
+                    font-family: 'Glyphicons Halflings';
+
+                    src: url('web/fonts/glyphicons-halflings-regular.eot');
+                    src: url('web/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('web/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('web/fonts/glyphicons-halflings-regular.woff') format('woff'), url('web/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('web/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+                }
+            </style>
         {% endblock %}
     </head>
     <body>
         {% block navbar %}
             {{ include('base/base.navbar.html.twig') }}
         {% endblock %}
-        {% block body %}{% endblock %}
+        {% block carousel %}
+            {{ include('base/base.carousel.html.twig') }}
+        {% endblock %}
+        <div class="container marketing">
+            {% block body %}{% endblock %}
+            {% block footer %}
+                {{ include('base/base.footer.html.twig') }}
+            {% endblock %}
+        </div><!-- /.container -->
         {% block javascripts%}
             <script src="{{ asset ('js/jquery-3.3.1.min.js') }}"></script>
             <script src="{{ asset ('js/bootstrap.min.js') }}"></script>

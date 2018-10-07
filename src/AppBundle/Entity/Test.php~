@@ -112,28 +112,4 @@ class Test
     {
         return $this->usersTestsResults;
     }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Test
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
 }

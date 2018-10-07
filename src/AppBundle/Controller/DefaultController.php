@@ -14,10 +14,20 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $formFactory = Forms::createFormFactory();
-        // replace this example code with whatever you need
+        $testsList = $this->getDoctrine()
+            ->getRepository('AppBundle:Test')
+            ->findAll();
+        if(empty($testsList)) {
+            throw $this->createNotFoundException(
+                "Sorry, but we don't have any tests for you now."
+            );
+        }
+        $testsRowsCount = (count($testsList)%3 == 0) ? count($testsList)/3 : count($testsList)/3+1;
+
         return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ));
+            'testsList' => $testsList,
+            'testsCount'=> $testsRowsCount
+            )
+        );
     }
 }
