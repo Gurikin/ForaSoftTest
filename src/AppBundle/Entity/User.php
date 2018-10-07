@@ -28,4 +28,9 @@ class User
      * @ORM\Column(type="string", length=100, unique=true, nullable=false)
      */
     private $login;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="user")  
+     */
+    private $usersTestsResults;    
 }

@@ -27,20 +27,9 @@ class Test
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $name="Test 1";
-
-
+    
     /**
-     * @ORM\ManyToMany(targetEntity="Question")
-     * @JoinTable(name="users_groups",
-     *      joinColumns={@JoinColumn(name="user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="group_id", referencedColumnName="id")}
-     *      )
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="test")  
      */
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Question")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
-     */
-    private $questions;
+    private $usersTestsResults; 
 }

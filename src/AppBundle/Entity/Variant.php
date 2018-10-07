@@ -29,14 +29,7 @@ class Variant
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="Question", mappedBy="variants")
-     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
+     * @ORM\OneToMany(targetEntity="QuestionVariants", mappedBy="variant")  
      */
-    private $question;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Answer", inversedBy="variant")
-     * @ORM\JoinColumn(name="answer_id", referencedColumnName="id", nullable=false)
-     */
-    private $answer;
+    private $questionVariants;
 }

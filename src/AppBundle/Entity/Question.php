@@ -34,20 +34,26 @@ class Question
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Test", mappedBy="questions")
-     * @ORM\JoinColumn(name="test_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToMany(targetEntity="Test")
+     * @ORM\JoinTable(name="tests_questions",
+     *      joinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="test_id", referencedColumnName="id")}
+     *      )
      */
     private $tests;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="QuestionVariants", mappedBy="question")  
+     */
+    private $questionVariants;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Variant", inversedBy="question")
-     * @ORM\JoinColumn(name="variant_id", referencedColumnName="id", nullable=false)
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="question")  
      */
-    private $variants;
+    private $usersTestsResults;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Answer", inversedBy="question")
-     * @ORM\JoinColumn(name="answer_id", referencedColumnName="id", nullable=false)
-     */
-    private $answers;
+    public function __construct()
+    {
+        $this->tests = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 }
