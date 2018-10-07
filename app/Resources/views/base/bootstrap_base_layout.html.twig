@@ -6,10 +6,13 @@
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
             <link rel="stylesheet" href="{{ asset('css/carousel.css') }}" />
+            <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        {% block navbar %}
+            {{ include('base/base.navbar.html.twig') }}
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts%}
             <script src="{{ asset ('js/jquery-3.3.1.min.js') }}"></script>
