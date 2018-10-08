@@ -33,14 +33,7 @@ class Question
      */
     private $type;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Test")
-     * @ORM\JoinTable(name="tests_questions",
-     *      joinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="test_id", referencedColumnName="id")}
-     *      )
-     */
-    private $tests;
+
     
     /**
      * @ORM\OneToMany(targetEntity="QuestionVariants", mappedBy="question")  
@@ -51,10 +44,13 @@ class Question
      * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="question")  
      */
     private $usersTestsResults;
-
+    /**
+     * Constructor
+     */
     public function __construct()
     {
-        $this->tests = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->questionVariants = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->usersTestsResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -113,40 +109,6 @@ class Question
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Add test
-     *
-     * @param \AppBundle\Entity\Test $test
-     *
-     * @return Question
-     */
-    public function addTest(\AppBundle\Entity\Test $test)
-    {
-        $this->tests[] = $test;
-
-        return $this;
-    }
-
-    /**
-     * Remove test
-     *
-     * @param \AppBundle\Entity\Test $test
-     */
-    public function removeTest(\AppBundle\Entity\Test $test)
-    {
-        $this->tests->removeElement($test);
-    }
-
-    /**
-     * Get tests
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTests()
-    {
-        return $this->tests;
     }
 
     /**

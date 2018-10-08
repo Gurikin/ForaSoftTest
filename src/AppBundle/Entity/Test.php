@@ -32,6 +32,15 @@ class Test
      * @ORM\Column(type="text")
      */
     private $description="Desctiption of test 1";
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Question")
+     * @ORM\JoinTable(name="tests_questions",
+     *      joinColumns={@ORM\JoinColumn(name="test_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id")}
+     *      )
+     */
+    private $questions;
     
     /**
      * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="test")  
@@ -135,5 +144,39 @@ class Test
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Add question
+     *
+     * @param \AppBundle\Entity\Question $question
+     *
+     * @return Test
+     */
+    public function addQuestion(\AppBundle\Entity\Question $question)
+    {
+        $this->questions[] = $question;
+
+        return $this;
+    }
+
+    /**
+     * Remove question
+     *
+     * @param \AppBundle\Entity\Question $question
+     */
+    public function removeQuestion(\AppBundle\Entity\Question $question)
+    {
+        $this->questions->removeElement($question);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }

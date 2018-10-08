@@ -44,4 +44,134 @@ class UserTestResult {
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $dateTime;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set result
+     *
+     * @param boolean $result
+     *
+     * @return UserTestResult
+     */
+    public function setResult($result)
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
+     * Get result
+     *
+     * @return boolean
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * Set dateTime
+     *
+     * @param \DateTime $dateTime
+     *
+     * @return UserTestResult
+     */
+    public function setDateTime($dateTime)
+    {
+        $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get dateTime
+     *
+     * @return \DateTime
+     */
+    public function getDateTime()
+    {
+        return $this->dateTime;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return UserTestResult
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set test
+     *
+     * @param \AppBundle\Entity\Test $test
+     *
+     * @return UserTestResult
+     */
+    public function setTest(\AppBundle\Entity\Test $test)
+    {
+        $this->test = $test;
+
+        return $this;
+    }
+
+    /**
+     * Get test
+     *
+     * @return \AppBundle\Entity\Test
+     */
+    public function getTest()
+    {
+        return $this->test;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \AppBundle\Entity\Question $question
+     *
+     * @return UserTestResult
+     */
+    public function setQuestion(\AppBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \AppBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }
