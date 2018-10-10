@@ -34,23 +34,31 @@ class Test
     private $description="Desctiption of test 1";
 
     /**
-     * @ORM\ManyToMany(targetEntity="Question")
+     * @ORM\ManyToMany(targetEntity="Question", inversedBy="tests")
      * @ORM\JoinTable(name="tests_questions",
-     *      joinColumns={@ORM\JoinColumn(name="test_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="question_id", referencedColumnName="id")}
-     *      )
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="test_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="question_id", referencedColumnName="id")
+     *  })
      */
-    private $questions;
+     private $questions;
     
     /**
      * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="test")  
      */
     private $usersTestsResults; 
+
+
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersTestsResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -86,40 +94,6 @@ class Test
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Add usersTestsResult
-     *
-     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
-     *
-     * @return Test
-     */
-    public function addUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
-    {
-        $this->usersTestsResults[] = $usersTestsResult;
-
-        return $this;
-    }
-
-    /**
-     * Remove usersTestsResult
-     *
-     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
-     */
-    public function removeUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
-    {
-        $this->usersTestsResults->removeElement($usersTestsResult);
-    }
-
-    /**
-     * Get usersTestsResults
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUsersTestsResults()
-    {
-        return $this->usersTestsResults;
     }
 
     /**
@@ -178,5 +152,39 @@ class Test
     public function getQuestions()
     {
         return $this->questions;
+    }
+
+    /**
+     * Add usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     *
+     * @return Test
+     */
+    public function addUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults[] = $usersTestsResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     */
+    public function removeUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults->removeElement($usersTestsResult);
+    }
+
+    /**
+     * Get usersTestsResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersTestsResults()
+    {
+        return $this->usersTestsResults;
     }
 }

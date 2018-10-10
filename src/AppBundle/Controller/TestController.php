@@ -2,52 +2,56 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Question;
 use AppBundle\Entity\Test;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\DataMapper\CheckboxListMapper;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class TestController extends Controller
 {
     /**
-     * @Route("/test", name="test")
+     * @Route("/test/{testId}", name="test_pass")
+     * @param $testId
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction($testId=null)
+    public function indexAction($testId)
     {
         $testRepository = $this->getDoctrine()
             ->getRepository('AppBundle:Test');
-        $test = new Test();
-        $questionRepository = $this->getDoctrine()
-            ->getRepository('AppBundle:Question');
-        if ($testId == null) {
-            $testsList = $testRepository->findAll();
-        } else {
-            $testsList = $testRepository->find($testId);
-            $questionsTestList = $test->getQuestions();
+        $test = $testRepository->find($testId);
+        $questionsTestList = $test->getQuestions();
+        foreach ($questionsTestList as $question) {
+            $questionVariantsList[] = $question->getVariants();
+            $questionTypeList[] = $question->getType();
         }
-        var_dump($questionsTestList);
-        $testsRowsCount = (count($testsList)%3 == 0) ? count($testsList)/3 : count($testsList)/3+1;
+        $questionsCount = count($questionsTestList);
 
-        return $this->render('default/index.html.twig', array(
-            'testsList' => $testsList,
-            'testsCount'=> $testsRowsCount
+        return $this->render('test/index.html.twig', array(
+                'test' => $test,
+                'questionsTestList'=> $questionsTestList,
+                'questionVariantsList' => $questionVariantsList,
+                'questionsCount' => $questionsCount,
+                'questionTypeList' => $questionTypeList
             )
         );
+    }
 
-//        SELECT content, `type`, `name` FROM fora_soft_test.question as q,
-//				fora_soft_test.test as t
-//                INNER JOIN fora_soft_test.tests_questions as tq
-//                where tq.question_id=q.id
-//    and t.id = 1;
-
-//        #$videos = $em->createQueryBuilder('v')
-//        #            ->add('select', 'v, c')
-//        #           ->add('from', 'YourBundle:Video v')
-//        #          ->leftJoin('YourBundle:Comment', 'c')
-//        #         ->where('v.comment = c.id')
-//        #        ... // some other conditions if you need
-//        #       ->getQuery()
-//        #      ->getResult();
+    /**
+     * @Route("/test/checkTest", name="test_check", methods={"POST"})
+     * @param $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function checkTestAction(Request $request) {
+        return $this->render('default/index.html.twig');
     }
 }

@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\QuestionRepository")
  * @ORM\Table(name="question")
  */
 class Question
@@ -33,23 +34,33 @@ class Question
      */
     private $type;
 
-
-    
     /**
-     * @ORM\OneToMany(targetEntity="QuestionVariants", mappedBy="question")  
+     * @ORM\ManyToMany(targetEntity="Test", mappedBy="questions")
      */
-    private $questionVariants;
+    private $tests;
+
+//    /**
+//     * @ORM\OneToMany(targetEntity="Variant", mappedBy="question")
+//     */
+    /**
+     * @ORM\OneToMany(targetEntity="Variant", mappedBy="question")
+     */
+    private $variants;
 
     /**
-     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="question")  
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="question")
      */
     private $usersTestsResults;
+
+
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->questionVariants = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tests = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->variants = new \Doctrine\Common\Collections\ArrayCollection();
         $this->usersTestsResults = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -108,41 +119,80 @@ class Question
      */
     public function getType()
     {
-        return $this->type;
+        switch ($this->type) {
+            case 1: return "checkbox";
+            case 2: return "radio";
+            case 3: return "text";
+            default: return $this->type;
+        }
     }
 
     /**
-     * Add questionVariant
+     * Add test
      *
-     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     * @param \AppBundle\Entity\Test $test
      *
      * @return Question
      */
-    public function addQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    public function addTest(\AppBundle\Entity\Test $test)
     {
-        $this->questionVariants[] = $questionVariant;
+        $this->tests[] = $test;
 
         return $this;
     }
 
     /**
-     * Remove questionVariant
+     * Remove test
      *
-     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     * @param \AppBundle\Entity\Test $test
      */
-    public function removeQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    public function removeTest(\AppBundle\Entity\Test $test)
     {
-        $this->questionVariants->removeElement($questionVariant);
+        $this->tests->removeElement($test);
     }
 
     /**
-     * Get questionVariants
+     * Get tests
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getQuestionVariants()
+    public function getTests()
     {
-        return $this->questionVariants;
+        return $this->tests;
+    }
+
+    /**
+     * Add variant
+     *
+     * @param \AppBundle\Entity\Variant $variant
+     *
+     * @return Question
+     */
+    public function addVariant(\AppBundle\Entity\Variant $variant)
+    {
+        $this->variants[] = $variant;
+
+        return $this;
+    }
+
+    /**
+     * Remove variant
+     *
+     * @param \AppBundle\Entity\Variant $variant
+     */
+    public function removeVariant(\AppBundle\Entity\Variant $variant)
+    {
+        $this->variants->removeElement($variant);
+    }
+
+    /**
+     * Get variants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVariants()
+    {
+        return $this->variants;
     }
 
     /**

@@ -1,0 +1,10 @@
+{% extends 'base/bootstrap_base_layout.html.twig' %}
+
+{% block body %}
+    {% block carousel %}
+    {% endblock %}
+    <div class="container questiton row text-center">
+        <h2>{{ test.name }}</h2>
+        {{ include('test/test.form.html.twig') }}
+    </div><!-- /.row -->
+{% endblock %}

@@ -11,14 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
 class QuestionVariants {
         
     /**
-     * @ORM\ManyToOne(targetEntity="Question", inversedBy="quesitonVariants")
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="questionVariants")
      * @ORM\Id
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
      */
     private $question;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Variant", inversedBy="quesitonVariants")
+     * @ORM\ManyToOne(targetEntity="Variant", inversedBy="questionVariants")
      * @ORM\Id
      * @ORM\JoinColumn(name="variant_id", referencedColumnName="id", nullable=false)
      */

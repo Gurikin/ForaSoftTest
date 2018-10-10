@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\VariantRepository")
  * @ORM\Table(name="variant")
  */
 class Variant
@@ -29,16 +30,19 @@ class Variant
     private $content;
 
     /**
-     * @ORM\OneToMany(targetEntity="QuestionVariants", mappedBy="variant")  
+     * @ORM\Column(type="boolean", nullable=false)
      */
-    private $questionVariants;
+    private $right;
+
     /**
-     * Constructor
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="variants")
      */
-    public function __construct()
-    {
-        $this->questionVariants = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $question;
+
+
+
+
+
 
     /**
      * Get id
@@ -75,36 +79,50 @@ class Variant
     }
 
     /**
-     * Add questionVariant
+     * Set right
      *
-     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     * @param boolean $right
      *
      * @return Variant
      */
-    public function addQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    public function setRight($right)
     {
-        $this->questionVariants[] = $questionVariant;
+        $this->right = $right;
 
         return $this;
     }
 
     /**
-     * Remove questionVariant
+     * Get right
      *
-     * @param \AppBundle\Entity\QuestionVariants $questionVariant
+     * @return boolean
      */
-    public function removeQuestionVariant(\AppBundle\Entity\QuestionVariants $questionVariant)
+    public function getRight()
     {
-        $this->questionVariants->removeElement($questionVariant);
+        return $this->right;
     }
 
     /**
-     * Get questionVariants
+     * Set question
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \AppBundle\Entity\Question $question
+     *
+     * @return Variant
      */
-    public function getQuestionVariants()
+    public function setQuestion(\AppBundle\Entity\Question $question = null)
     {
-        return $this->questionVariants;
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \AppBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
     }
 }

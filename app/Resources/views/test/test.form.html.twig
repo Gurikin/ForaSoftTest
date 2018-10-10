@@ -1,0 +1,22 @@
+<form action="test/checkTest" method="POST">
+    {% for i in 1..questionsCount %}
+        <fieldset>
+        <legend><h4>{{ questionsTestList[i-1].content }}</h4></legend>
+            {% for variant in questionVariantsList[i-1] %}
+                <span class="row text-center">
+                    <input type="{{ questionTypeList[i-1] }}" name="{{ questionsTestList[i-1].content }}"
+                        value="{% if questionTypeList[i-1] != 'text' %} {{ variant.content | trim(side='left') }} {% endif %}">
+                        {% if questionTypeList[i-1] != 'text' %} {{ variant.content | trim(side='left') }} {% endif %}
+                    </input>
+                </span><!-- /.row text-center -->
+            {% endfor %}
+        </fieldset>
+    {% endfor %}
+    <br><br>
+    <input type="submit" value="Проверить результат">
+
+</form>
+
+
+
+
