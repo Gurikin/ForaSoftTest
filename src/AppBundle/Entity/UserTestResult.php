@@ -46,6 +46,11 @@ class UserTestResult {
     private $dateTime;
 
     /**
+     * @ORM\Column(type="string", length=100, unique=true, nullable=false)
+     */
+    private $session;
+
+    /**
      * Get id
      *
      * @return integer

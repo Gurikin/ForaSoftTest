@@ -1,0 +1,16 @@
+{% extends 'base/bootstrap_base_layout.html.twig' %}
+
+{% block body %}
+    {% block carousel %}{% endblock %}
+    <div class="container questiton row text-center">
+        <h2>Test completed!</h2>
+        {% for q_key, q_value in testResult %}
+            <h3>{{q_key}}</h3>
+            {%for variants in q_value %}
+                <h4>{{variants}}</h4>
+            {% endfor %}
+        {% endfor %}
+        {# {{ include('test/test.form.html.twig') }} #}
+    </div>
+    <!-- /.row -->
+{% endblock %}
