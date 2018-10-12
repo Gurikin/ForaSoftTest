@@ -2,15 +2,32 @@
 
 {% block body %}
     {% block carousel %}{% endblock %}
-    <div class="container questiton row text-center">
-        <h2>Test completed!</h2>
+    <div class="container question row text-center">
+        <h2>Test results:</h2>
         {% for q_key, q_value in testResult %}
             <h3>{{q_key}}</h3>
-            {%for variants in q_value %}
-                <h4>{{variants}}</h4>
+            {%for v_key, v_value in q_value %}
+
+                    {% if v_value == 'Wrong!'%}
+                        {% set style = 'text-danger' %}
+                    {% endif %}
+                    {% if v_value == 'You was right in here.'%}
+                        {% set style = 'text-success' %}
+                    {% endif %}
+                    {% if v_value == 'Right variant.'%}
+                        {% set style = 'text-info' %}
+                    {% endif %}
+                    {% if v_value == ''%}
+                        {% set style = 'text-dark' %}
+                    {% endif %}
+                <div class="row">
+                    <div class="col-lg-offset-0 col-lg-6 right text-right">{{ v_key }}</div>
+                    <div class="col-lg-offset-0 col-lg-6 left text-left">
+                        <small class={{ style }}>{{ v_value }}</small>
+                    </div>
+                </div>{#end of row#}
             {% endfor %}
         {% endfor %}
-        {# {{ include('test/test.form.html.twig') }} #}
     </div>
     <!-- /.row -->
 {% endblock %}

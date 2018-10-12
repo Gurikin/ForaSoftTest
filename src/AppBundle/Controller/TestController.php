@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Form\TestForm;
 use AppBundle\Entity\Question;
+use AppBundle\Entity\Service\TestService;
 use AppBundle\Entity\Test;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -29,6 +29,8 @@ class TestController extends Controller
     public function indexAction($testId, Request $request)
     {
         //Setup & handle of submit form block
+        $testServ = new TestService();
+
         $form = $this->createFormBuilder(array('message' => 'content'))
             ->setAction($this->generateUrl('test_submit'))
             ->setMethod('POST')
@@ -37,9 +39,10 @@ class TestController extends Controller
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $result = $request->request->get('Q');
             $tid = $request->request->get('form')['testId'];
-            $this->checkTest($tid, $result);
+            $source = $this->getTestList($tid);
+            $result = $request->request->get('Q');
+            $result = $testServ->checkTest($source, $result);
             return $this->render('test/test_result.html.twig', array(
                 'testResult' => $result
             ));
@@ -92,24 +95,5 @@ class TestController extends Controller
             'questionTypeList' => $questionTypeList
         );
         return $testList;
-    }
-
-    /**
-     * @param $testId
-     * @param array $result
-     */
-    private function checkTest($testId, array $result) {
-        $source = $this->getTestList($testId);
-        $generalResult = array();
-        foreach ($source['questionsTestList'] as $question) {
-            if ($question->getType() == 'checkbox') {
-                foreach ($question->getVariants() as $variant) {
-                    if ($result[$question->getId()])
-                    $generalResult[$question->getContent()] = array($variant->getContent() => "");
-
-                }
-            }
-
-        }
     }
 }
