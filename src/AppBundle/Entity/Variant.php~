@@ -34,105 +34,13 @@ class Variant
      */
     private $right;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Question", inversedBy="variants")
-//     */
     /**
-     * @ORM\ManyToOne(targetEntity="Question", inversedBy="question")
-     * @ORM\JoinTable(name="question_variants",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="variant_id", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="question_id", referencedColumnName="id")
-     *  })
+     * @ORM\ManyToOne(targetEntity="Question", inversedBy="variants")
      */
     private $question;
 
-
-
-
-
-
     /**
-     * Get id
-     *
-     * @return integer
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="variant")
      */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Variant
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set right
-     *
-     * @param boolean $right
-     *
-     * @return Variant
-     */
-    public function setRight($right)
-    {
-        $this->right = $right;
-
-        return $this;
-    }
-
-    /**
-     * Get right
-     *
-     * @return boolean
-     */
-    public function getRight()
-    {
-        return $this->right;
-    }
-
-    /**
-     * Set question
-     *
-     * @param \AppBundle\Entity\Question $question
-     *
-     * @return Variant
-     */
-    public function setQuestion(\AppBundle\Entity\Question $question = null)
-    {
-        $this->question = $question;
-
-        return $this;
-    }
-
-    /**
-     * Get question
-     *
-     * @return \AppBundle\Entity\Question
-     */
-    public function getQuestion()
-    {
-        return $this->question;
-    }
+    private $usersTestsResults;
 }

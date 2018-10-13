@@ -22,7 +22,7 @@ class UserTestResult {
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     private $user;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Test", inversedBy="usersTestsResults")
      * @ORM\JoinColumn(name="test_id", referencedColumnName="id", nullable=false)
@@ -34,9 +34,15 @@ class UserTestResult {
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false)
      */
     private $question;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Variant", inversedBy="usersTestsResults")
+     * @ORM\JoinColumn(name="variant_id", referencedColumnName="id", nullable=false)
+     */
+    private $variant;
     
     /**
-     * @ORM\Column(type="boolean", nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private $result;
     
@@ -46,7 +52,7 @@ class UserTestResult {
     private $dateTime;
 
     /**
-     * @ORM\Column(type="string", length=100, unique=true, nullable=false)
+     * @ORM\Column(type="string", length=100, nullable=false)
      */
     private $session;
 
@@ -63,7 +69,7 @@ class UserTestResult {
     /**
      * Set result
      *
-     * @param boolean $result
+     * @param string $result
      *
      * @return UserTestResult
      */
@@ -77,7 +83,7 @@ class UserTestResult {
     /**
      * Get result
      *
-     * @return boolean
+     * @return string
      */
     public function getResult()
     {
@@ -109,27 +115,27 @@ class UserTestResult {
     }
 
     /**
-     * Set user
+     * Set session
      *
-     * @param \AppBundle\Entity\User $user
+     * @param string $session
      *
      * @return UserTestResult
      */
-    public function setUser(\AppBundle\Entity\User $user)
+    public function setSession($session)
     {
-        $this->user = $user;
+        $this->session = $session;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get session
      *
-     * @return \AppBundle\Entity\User
+     * @return string
      */
-    public function getUser()
+    public function getSession()
     {
-        return $this->user;
+        return $this->session;
     }
 
     /**
@@ -178,5 +184,53 @@ class UserTestResult {
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set variant
+     *
+     * @param \AppBundle\Entity\Variant $variant
+     *
+     * @return UserTestResult
+     */
+    public function setVariant(\AppBundle\Entity\Variant $variant)
+    {
+        $this->variant = $variant;
+
+        return $this;
+    }
+
+    /**
+     * Get variant
+     *
+     * @return \AppBundle\Entity\Variant
+     */
+    public function getVariant()
+    {
+        return $this->variant;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return UserTestResult
+     */
+    public function setUser(\AppBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

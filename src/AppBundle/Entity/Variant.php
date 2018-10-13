@@ -39,10 +39,17 @@ class Variant
      */
     private $question;
 
-
-
-
-
+    /**
+     * @ORM\OneToMany(targetEntity="UserTestResult", mappedBy="variant")
+     */
+    private $usersTestsResults;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->usersTestsResults = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -124,5 +131,39 @@ class Variant
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Add usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     *
+     * @return Variant
+     */
+    public function addUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults[] = $usersTestsResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersTestsResult
+     *
+     * @param \AppBundle\Entity\UserTestResult $usersTestsResult
+     */
+    public function removeUsersTestsResult(\AppBundle\Entity\UserTestResult $usersTestsResult)
+    {
+        $this->usersTestsResults->removeElement($usersTestsResult);
+    }
+
+    /**
+     * Get usersTestsResults
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsersTestsResults()
+    {
+        return $this->usersTestsResults;
     }
 }

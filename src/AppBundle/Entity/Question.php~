@@ -119,7 +119,12 @@ class Question
      */
     public function getType()
     {
-        return $this->type;
+        switch ($this->type) {
+            case 1: return "checkbox";
+            case 2: return "radio";
+            case 3: return "text";
+            default: return $this->type;
+        }
     }
 
     /**
