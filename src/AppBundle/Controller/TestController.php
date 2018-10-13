@@ -35,9 +35,13 @@ class TestController extends Controller
      */
     public function indexAction($testId, Request $request)
     {
-        //Setup & handle of submit form block
-//        $testServ = new TestService();
-
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($this->container->get('security.context')
+            ->getToken()
+            ->getUser());
+        if ($user == null) {
+            return $this->render('user/user_miss.html.twig');
+        }
         $form = $this->createFormBuilder(array('message' => 'content'))
             ->setAction($this->generateUrl('test_submit'))
             ->setMethod('POST')
@@ -49,9 +53,10 @@ class TestController extends Controller
             $tid = $request->request->get('form')['testId'];
             $source = $this->getTestList($tid);
             $result = $request->request->get('Q');
-            $result = $this->checkTest($source, $result);
+            $result = $this->checkTest($source, $result, $user);
             return $this->render('test/test_result.html.twig', array(
-                'testResult' => $result
+                'testResult' => $result,
+                'user' => $user
             ));
         }
 
@@ -65,6 +70,7 @@ class TestController extends Controller
                 'questionVariantsList' => $testList['questionVariantsList'],
                 'questionsCount' => $testList['questionsCount'],
                 'questionTypeList' => $testList['questionTypeList'],
+                'user' => $user,
                 'form' => $form->CreateView()
             )
         );
@@ -109,9 +115,10 @@ class TestController extends Controller
     /**
      * @param $source
      * @param array $result
+     * @param $user
      * @return array
      */
-    public function checkTest($source, array $result)
+    public function checkTest($source, array $result, $user)
     {
         //==========================================================================
         //Create the necessary objects
@@ -121,10 +128,6 @@ class TestController extends Controller
         $userTestResult->setTest($source['test']);
         $userTestResult->setSession($session->getId());
         $date = new DateTime();
-        $userManager = $this->container->get('fos_user.user_manager');
-        $user = $userManager->findUserByUsername($this->container->get('security.context')
-            ->getToken()
-            ->getUser());
         $userTestResult->setUser($user);
 
         //==========================================================================

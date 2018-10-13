@@ -24,9 +24,15 @@ class DefaultController extends Controller
         }
         $testsRowsCount = (count($testsList)%3 == 0) ? count($testsList)/3 : count($testsList)/3+1;
 
+        $userManager = $this->container->get('fos_user.user_manager');
+        $user = $userManager->findUserByUsername($this->container->get('security.context')
+            ->getToken()
+            ->getUser());
+
         return $this->render('default/index.html.twig', array(
-            'testsList' => $testsList,
-            'testsCount'=> $testsRowsCount
+                'testsList' => $testsList,
+                'testsCount'=> $testsRowsCount,
+                'user' => $user
             )
         );
     }

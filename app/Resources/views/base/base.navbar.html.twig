@@ -1,3 +1,12 @@
+
+
+{% if user != null %}
+    {% set name = user.username %}
+    {% set logUrl = 'logout' %}
+    {% else %}
+        {% set name = 'Login' %}
+        {% set logUrl = 'login' %}
+{% endif %}
 <div class="navbar-wrapper">
     <div class="container">
 
@@ -12,9 +21,12 @@
                     </button>
                     <a class="navbar-brand" href="/">Fora Soft Test</a>
                 </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Tests list</a></li>
+                <div id="navbar" class="navbar-collapse collapse{# pull-right#}">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active"><a href="/">Tests list</a></li>
+                    </ul>
+                    <ul id="navbar-right" class="nav navbar-nav navbar-right">
+                        <li class="nav-item"><a href="/{{ logUrl }}">{{ name }}</a></li>
                     </ul>
                 </div>
             </div>

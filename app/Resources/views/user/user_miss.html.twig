@@ -1,0 +1,13 @@
+{% extends 'base/bootstrap_base_layout.html.twig' %}
+
+{% block body %}
+    {% block carousel %}{% endblock %}
+    <div class="container question row text-center">
+        <h2>We're sorry.</h2>
+        <h5 class="text-danger">
+            We're sorry, but only authorized users can pass the tests.
+        </h5>
+        <a href="/login" type="button" class="btn btn-default navbar-btn">Login</a>
+    </div>
+    <!-- /.row -->
+{% endblock %}
